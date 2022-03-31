@@ -8,7 +8,7 @@ const axios = require ("axios")
 //********* Funciones *********
 
 const getDogsDb = async () => {
-    return await Dog.findAll({
+    var perrosDb = await Dog.findAll({
         include:{
             model: Temperamento,
             attributes: ['nombre'],
@@ -17,7 +17,23 @@ const getDogsDb = async () => {
             }
         }
     })
+    for (let i = 0; i < perrosDb.length; i++) {
+        //console.log(perrosDb[i].temperamentos[i])
+        var aux =[]
+        perrosDb[i].temperamentos.map(elem =>{
+            aux.push(elem.dataValues.nombre)
+            console.log(aux)
+
+        })
+        //console.log(perrosDb[i])
+        //perrosDb[i].temperamentos = aux
+        
+    }
+    //console.log(perrosDb) 
+    return perrosDb
 }
+
+
 
 const getDogsApi = async () => {
     var dogs = await axios.get("https://api.thedogapi.com/v1/breeds")
@@ -49,6 +65,15 @@ const getTodosDogs = async () => {
 
 
 //********* Rutas ********* 
+router.get('/peso', async (req, res, next) =>{
+    var dogs = await axios.get("https://api.thedogapi.com/v1/breeds")
+    dogs = dogs.data
+    var pesos = []
+    dogs.map(elem =>{
+        pesos.push(elem.weight.imperial)
+    })
+    res.status(200).send(pesos)
+})
 router.get('/', async (req, res, next)=>{
     const nombreQ = req.query.name
     const dogsTotales = await getTodosDogs()
@@ -58,23 +83,62 @@ router.get('/', async (req, res, next)=>{
         res.status(200).send(dogBusc) :
         res.status(404).send("No hay raza de perro con ese nombre")
     }else{
+        console.log(dogsTotales[0])
         res.status(200).send(dogsTotales)
     }
 })
 
 router.get('/:idRaza', async (req, res, next)=>{
     const id = req.params.idRaza
-    if(id.length < 5){
+    if(id < 300){
         const dogs = await getDogsApi()
+        const dog = dogs.filter(elem => elem.id == id)
+        return res.status(200).send(dog)
     }else{
         const dogs = await getDogsDb()
+        const dog = dogs.filter(elem => elem.id == id)
+        return res.status(200).send(dog)
     }
-        const dog = dogs.filter(elem => elem.id === id)
-    return res.status(200).json(dog)
+    
 })
 
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {    //En el front hacer un handleChange para los 4 altura/peso min/max con un switch en e.target.name que pushee o unshiftee al string correspondiente
+    let {
+        nombre,
+        altura,
+        peso,
+        años,
+        temperamentos,
+        imagen,
+        createdInDB,
+    }=req.body
+    let perroCreado = {}
+    if(imagen === ""){ // Saco la imagen para que quede null
+        perroCreado = await Dog.create({
+            nombre,
+            altura,
+            peso,
+            años,
+            createdInDB
+        })
+    }else{
+        perroCreado = await Dog.create({
+            nombre,
+            altura,
+            peso,
+            años,
+            imagen,
+            createdInDB
+        })
+    }
+
+    let tempDB = await Temperamento.findAll({
+        where: {nombre: temperamentos}
+    })
+
+    perroCreado.addTemperamento(tempDB)
+    res.send("Perro creado correctamente")
 
 })
 
