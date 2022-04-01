@@ -1,7 +1,9 @@
 import {React, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getDogs } from '../../actions'
+import { getDogs, getTemparemanetos } from '../../actions'
+import { Card } from '../Card/Card'
+
 
 export default function Home(){
     const dispatch = useDispatch()
@@ -11,6 +13,7 @@ export default function Home(){
 
     useEffect(()=>{
         dispatch(getDogs())
+        dispatch(getTemparemanetos())
     }, [dispatch])
 
 
@@ -71,7 +74,12 @@ export default function Home(){
                     <option value='Todos'>Todos</option>
                     <option value='Creados'>Creados</option>
                     <option value='Api'>Existentes</option>
-                </select>
+            </select>
+            {
+                allDogs && allDogs.map( elem=>
+                    <Card nombre={elem.nombre} imagen ={elem.imagen} temperamentos = {elem.temperamentos}/>
+                )
+            }
         </div>
     )
 }

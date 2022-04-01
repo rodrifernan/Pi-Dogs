@@ -11,7 +11,5 @@ export default function LandingPage(){
                 <button>Let's go!</button>
             </Link>
         </div>
-
-        
     )
 }

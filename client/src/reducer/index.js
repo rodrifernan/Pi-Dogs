@@ -13,6 +13,16 @@ function rootReducer(state= initialState, action){
                 ...state,
                 dogs: action.payload
             }
+
+        case 'GET_TEMPERAMENTOS':
+            return {
+                ...state,
+                temperamentos: action.payload
+            }
+        
+        
+        
+        default : break
     }
 } 
 
