@@ -22,7 +22,7 @@ const getDogsDb = async () => {
         var aux =[]
         perrosDb[i].temperamentos.map(elem =>{
             aux.push(elem.dataValues.nombre)
-            console.log(aux)
+            //console.log(aux)
 
         })
         //console.log(perrosDb[i])
@@ -83,7 +83,7 @@ router.get('/', async (req, res, next)=>{
         res.status(200).send(dogBusc) :
         res.status(404).send("No hay raza de perro con ese nombre")
     }else{
-        console.log(dogsTotales[0])
+        //console.log(dogsTotales[0].data)
         res.status(200).send(dogsTotales)
     }
 })

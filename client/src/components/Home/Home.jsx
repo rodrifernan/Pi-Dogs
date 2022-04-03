@@ -1,14 +1,27 @@
 import {React, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getDogs, getTemparemanetos } from '../../actions'
+import { getDogs, getTemparemanetos, filterDogsByTemperament, orderByName, orderByWeight } from '../../actions'
 import { Card } from '../Card/Card'
+import Paginado from '../Paginado/Paginado'
 
 
 export default function Home(){
     const dispatch = useDispatch()
-    const allDogs = useSelector( (state) => state.dogs )
+    const allDogs = useSelector( (state) => state.dogsCopy )
     const allTemperamentos = useSelector( (state) => state.temperamentos)
+    //para el ordenamiento
+    const [orden, setOrden]=useState('')
+    //para el paginado
+    const [currentPage, setCurrentPage] = useState(1)
+    const [dogsPerPage,{/* setDogsPerPage*/}] = useState(8)
+    const indexOfLastDog = currentPage * dogsPerPage
+    const indexOfFirstDog = indexOfLastDog - dogsPerPage
+    const currentDog = allDogs.slice(indexOfFirstDog, indexOfLastDog)
+
+    const paginado = (pageNumber)=>{
+        setCurrentPage(pageNumber)
+    }
 
 
     useEffect(()=>{
@@ -17,25 +30,35 @@ export default function Home(){
     }, [dispatch])
 
 
-    function handleClick(e){
+    function handleClick(e){    //Listo
         e.preventDefault()
         dispatch(getDogs())
+        setCurrentPage(1)
     }
 
-    function handleSortNombre(e){
-
+    function handleSortNombre(e){   //Listo
+        e.preventDefault()
+        dispatch(orderByName(e.target.value))
+        setCurrentPage(1)
+        setOrden(`Ordenado ${e.target.value}`)
     }
 
     function handleSortPeso(e){
-
+        e.preventDefault()
+        dispatch(orderByWeight(e.target.value))
+        setCurrentPage(1)
+        setOrden(`Ordenado ${e.target.value}`)
     }
 
-    function handleFilterTemperamento(e){
-        
+    function handleFilterTemperamento(e){   //Listo
+        e.preventDefault()
+        dispatch(filterDogsByTemperament(e.target.value))
+        setCurrentPage(1)
     }
 
     function handleFilterOrigen(e){
-        
+        e.preventDefault()
+        setCurrentPage(1)
     }
 
 
@@ -48,8 +71,8 @@ export default function Home(){
             <div>
             <select onChange={e=> handleSortNombre(e)} name = 'nombre'>              {/*Ordenar por nombre*/}
                     <option selected disabled>Ordenar Por Nombre</option>
-                    <option value='desc'>A-Z</option>
-                    <option value='asc'>Z-A</option>
+                    <option value='asc'>A-Z</option>
+                    <option value='desc'>Z-A</option>
                 </select>
             </div>
             <select onChange={e=> handleSortPeso(e)} name='peso'>         {/*Ordenar por peso*/}
@@ -75,9 +98,15 @@ export default function Home(){
                     <option value='Creados'>Creados</option>
                     <option value='Api'>Existentes</option>
             </select>
+            <Paginado dogsPerPage ={dogsPerPage} allDogs = {allDogs.length} paginado = {paginado}/>
             {
-                allDogs && allDogs.map( elem=>
-                    <Card nombre={elem.nombre} imagen ={elem.imagen} temperamentos = {elem.temperamentos}/>
+                currentDog?.map( elem=>{
+                    return (
+                    <div>
+                        <Link to={"/home/" + elem.id}>
+                        <Card nombre={elem.nombre} imagen ={elem.imagen} temperamentos = {elem.temperamentos}/>
+                        </Link>
+                    </div>)}
                 )
             }
         </div>

@@ -20,3 +20,24 @@ export function getTemparemanetos(){
         })
     }
 }
+
+export function filterDogsByTemperament(payload){
+    return {
+        type: 'FILTER_BY_TEMPERAMENTO',
+        payload
+    }
+}
+
+export function orderByName(payload){
+    return {
+        type: 'ORDER_BY_NAME',
+        payload
+    }
+}
+
+export function orderByWeight(payload){
+    return {
+        type: 'ORDER_BY_WEIGHT',
+        payload
+    }
+}
