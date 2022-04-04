@@ -41,3 +41,24 @@ export function orderByWeight(payload){
         payload
     }
 }
+
+export function filterByOrigin(payload){
+    return {
+        type: 'FILTER_BY_ORIGIN',
+        payload
+    }
+}
+
+export function getDogByName(payload){
+    return async function (dispatch){
+        try{
+            var json = await axios.get("http://localhost:3001/dogs?name=" + payload)
+            return dispatch({
+                type: "GET_DOG_BY_NAME",
+                payload: json.data
+            })
+        }catch(e){
+            console.log("error en la busqueda")
+        }
+    }
+}

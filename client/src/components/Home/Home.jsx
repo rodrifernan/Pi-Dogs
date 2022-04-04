@@ -1,8 +1,9 @@
 import {React, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getDogs, getTemparemanetos, filterDogsByTemperament, orderByName, orderByWeight } from '../../actions'
+import { getDogs, getTemparemanetos, filterDogsByTemperament, orderByName, orderByWeight, filterByOrigin } from '../../actions'
 import { Card } from '../Card/Card'
+import SearchBar from '../SearchBar/SearchBar'
 import Paginado from '../Paginado/Paginado'
 
 
@@ -43,7 +44,7 @@ export default function Home(){
         setOrden(`Ordenado ${e.target.value}`)
     }
 
-    function handleSortPeso(e){
+    function handleSortPeso(e){         //Listo
         e.preventDefault()
         dispatch(orderByWeight(e.target.value))
         setCurrentPage(1)
@@ -58,6 +59,7 @@ export default function Home(){
 
     function handleFilterOrigen(e){
         e.preventDefault()
+        dispatch(filterByOrigin(e.target.value))
         setCurrentPage(1)
     }
 
@@ -98,6 +100,7 @@ export default function Home(){
                     <option value='Creados'>Creados</option>
                     <option value='Api'>Existentes</option>
             </select>
+            <SearchBar/>
             <Paginado dogsPerPage ={dogsPerPage} allDogs = {allDogs.length} paginado = {paginado}/>
             {
                 currentDog?.map( elem=>{

@@ -46,7 +46,7 @@ const getDogsApi = async () => {
             id : elem.id,
             nombre : elem.name,
             altura : elem.height.metric,
-            peso : elem.weight.metric,
+            peso : elem.weight.imperial,
             años : elem.life_span,
             temperamentos : temperamentos,
             imagen : elem.image.url
@@ -70,6 +70,7 @@ router.get('/peso', async (req, res, next) =>{
     dogs = dogs.data
     var pesos = []
     dogs.map(elem =>{
+        if(elem.weight.imperial.length < 4){}
         pesos.push(elem.weight.imperial)
     })
     res.status(200).send(pesos)
