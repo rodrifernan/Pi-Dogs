@@ -1,7 +1,8 @@
 const initialState ={
     dogs: [],
     dogsCopy: [],
-    temperamentos: []
+    temperamentos: [],
+    detail: []
 }
 
 function checkearTemps(array, payload){     //funcion auxiliar para filtrar por tipos
@@ -121,7 +122,17 @@ function rootReducer(state= initialState, action){
                 ...state,
                 dogsCopy: action.payload
             }
-        
+        case 'GET_DETAIL' :
+            return {
+                ...state,
+                detail: action.payload
+            }
+        case 'CLEAR_DETAIL':
+            return{
+                ...state,
+                detail: []
+            }
+    
         default : return state;
     }
 } 

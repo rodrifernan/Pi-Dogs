@@ -62,3 +62,24 @@ export function getDogByName(payload){
         }
     }
 }
+
+export function getDetail(id){
+    return async function(dispatch){
+        try{
+        const json = await axios.get("http://localhost:3001/dogs/"+id)
+        return dispatch({
+            type: 'GET_DETAIL',
+            payload: json.data
+        })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+
+export function clearDetail(payload){
+    return {
+        type: 'CLEAR_DETAIL',
+        payload
+    }
+}
