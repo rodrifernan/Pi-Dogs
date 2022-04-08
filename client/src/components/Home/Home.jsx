@@ -1,7 +1,7 @@
 import {React, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getDogs, getTemparemanetos, filterDogsByTemperament, orderByName, orderByWeight, filterByOrigin } from '../../actions'
+import { getDogs, getTemparemanetos, filterDogsByTemperament, orderByName, orderByWeight, filterByOrigin, clearDetail } from '../../actions'
 import { Card } from '../Card/Card'
 import SearchBar from '../SearchBar/SearchBar'
 import Paginado from '../Paginado/Paginado'
@@ -15,7 +15,7 @@ export default function Home(){
     const [orden, setOrden]=useState('')
     //para el paginado
     const [currentPage, setCurrentPage] = useState(1)
-    const [dogsPerPage,{/* setDogsPerPage*/}] = useState(8)
+    const [dogsPerPage] = useState(8)
     const indexOfLastDog = currentPage * dogsPerPage
     const indexOfFirstDog = indexOfLastDog - dogsPerPage
     const currentDog = allDogs.slice(indexOfFirstDog, indexOfLastDog)
@@ -28,6 +28,7 @@ export default function Home(){
     useEffect(()=>{
         dispatch(getDogs())
         dispatch(getTemparemanetos())
+        dispatch(clearDetail())
     }, [dispatch])
 
 

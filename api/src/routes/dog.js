@@ -71,7 +71,7 @@ router.get('/peso', async (req, res, next) =>{
     var pesos = []
     dogs.map(elem =>{
         if(elem.weight.imperial.length < 4){}
-        pesos.push(elem.weight.imperial)
+        pesos.push(elem.height.metric)
     })
     res.status(200).send(pesos)
 })
@@ -98,6 +98,7 @@ router.get('/:idRaza', async (req, res, next)=>{
     }else{
         const dogs = await getDogsDb()
         const dog = dogs.filter(elem => elem.id == id)
+        if(dog.length ===0){return res.status(404).send("No hay perro con esa ID")}
         return res.status(200).send(dog)
     }
     

@@ -83,3 +83,10 @@ export function clearDetail(payload){
         payload
     }
 }
+
+export function postDog(payload){
+    return async function (dispatch){
+        const json = await axios.post("http://localhost:3001/dogs/", payload)
+        return json
+    }
+}
