@@ -28,9 +28,9 @@ export default function CreateDog (){
 
     const [input, setInput] = useState({
         nombre: "",
-        altura:"0 - 0",
-        peso: "0 - 0",
-        años: "0 - 0",
+        altura:"",
+        peso: "",
+        años: "",
         temperamentos: [],
         imagen: ""
     })
@@ -122,8 +122,34 @@ export default function CreateDog (){
 
     function handleSubmit(e){
         e.preventDefault()
-        console.log(input)
         
+        if(input.imagen === ""){
+            var newInput ={
+                altura: input.altura,
+                años: input.años,
+                nombre: input.nombre,
+                peso: input.peso,
+                temperamentos: input.temperamentos
+            }
+            //dispatchear con new input
+            dispatch(postDog(newInput))
+            console.log(newInput)
+            console.log(input)
+
+        }else{
+            dispatch(postDog(input))
+            //dispatch normal
+        }
+        alert('Perro creado')
+        setInput({
+            nombre: "",
+            altura:"",
+            peso: "",
+            años: "",
+            temperamentos: [],
+            imagen: ""
+        })
+
     }
 
     return (

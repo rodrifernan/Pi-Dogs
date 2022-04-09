@@ -28,7 +28,7 @@ export default function Detail(){
                     <h4>ID de Raza: {myDog[0].id}</h4>
                     <h4>Temperamentos: {myDog[0].temperamentos.map((elem)=>elem + " ") }</h4>
                     <ul>
-                        <label>Stats:</label>
+                        <label>Estadisticas:</label>
                         <li>Altura: {myDog[0].altura}</li>
                         <li>Peso: {myDog[0].peso}</li>
                         <li>Años: {myDog[0].años}</li>
@@ -38,10 +38,10 @@ export default function Detail(){
                     <img src={myDog[0].imagen} onError={(e)=>{e.target.onerror = null; e.target.src="https://img.favpng.com/20/25/4/dog-paw-logo-cat-png-favpng-Z89TpBXQKbri6trMAcXqnNdJq.jpg"}} alt = "" height="750px" width="700px"/>
                     <h4>Types: {myDog[0].temperamentos.map((elem)=>elem.nombre + " ")}</h4>
                     <ul>
-                        <label>Stats:</label>
-                        <li>Health: {myDog[0].altura}</li>
-                        <li>Attack: {myDog[0].peso}</li>
-                        <li>Defense: {myDog[0].años}</li>
+                        <label>Estadisticas:</label>
+                        <li>Altura: {myDog[0].altura}</li>
+                        <li>Peso: {myDog[0].peso}</li>
+                        <li>Años: {myDog[0].años}</li>
                     </ul>
                 </div>  :
                 <p>Loading</p>
