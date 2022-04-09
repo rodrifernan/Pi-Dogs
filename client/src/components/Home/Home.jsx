@@ -106,7 +106,7 @@ export default function Home(){
             {
                 currentDog?.map( elem=>{
                     return (
-                    <div>
+                    <div key={elem.id}>
                         <Link to={"/home/" + elem.id}>
                         <Card nombre={elem.nombre} imagen ={elem.imagen} temperamentos = {elem.temperamentos}/>
                         </Link>
