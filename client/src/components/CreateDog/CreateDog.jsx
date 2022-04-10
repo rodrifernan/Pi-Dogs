@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { getTemparemanetos, postDog } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,9 +15,44 @@ export default function CreateDog (){
             ...input,
             [e.target.name]: e.target.value
         })
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value
+        }))
     }
 
-    
+    function validate(input){
+        let errors = {}
+        if(input.nombre.length < 4){
+            errors.nombre = "El nombre debe tener al menos 4 letras"
+        }
+        if(pesoMin>=pesoMax || pesoMax<=0 || pesoMin<=0){
+            errors.peso = "El peso minimo debe ser menor al maximo"
+        }
+        if(!parseFloat(pesoMax) || !parseFloat(pesoMin)){
+            errors.pesoNum = "Los pesos deben ser numericos"
+        }
+        if(añosMin>=añosMax || añosMax<=0 || añosMin<=0){
+            errors.años = "Los años minimos deben ser menores a los máximos"
+        }
+        if(!parseFloat(añosMax)|| !parseFloat(añosMin)){
+            errors.añosNum= "Los años deben ser numéricos"
+        }
+        if(altMin>=altMax || altMax<=0 || altMin<=0){
+            errors.alt = "La altura minima debe ser menor a la máxima"
+        }
+        if(!parseFloat(altMax)|| !parseFloat(altMin)){
+            errors.altNum= "Las alturas deben ser numéricas"
+        }
+        if(input.temperamentos.length===0 || input.temperamentos.length > 5 ){
+            errors.temperamentos = "Tiene que tener entre 1 y 5 temperamentos"
+        }
+
+        return errors
+    }
+
+
+    const [errors, setErrors] = useState({})
 
     const [pesoMin, setPesoMin] = useState(0)
     const [pesoMax, setPesoMax] = useState(0)
@@ -40,7 +75,13 @@ export default function CreateDog (){
             setInput({
             ...input,
             temperamentos: [...input.temperamentos, e.target.value]
-        })
+            })
+            setErrors(validate({
+                ...input,
+                temperamentos: [...input.temperamentos, e.target.value]
+            }))
+            //console.log(input)
+            console.log(errors)
         }
         
         //console.log(input.temperamentos)
@@ -66,7 +107,11 @@ export default function CreateDog (){
                 /* const nuevosTemp = input.temperamentos
                 nuevosTemp.pop()
                 console.log(nuevosTemp) */
-                return setInput({
+                setErrors(validate({
+                    ...input,
+                    temperamentos: []
+                }))
+                setInput({
                     ...input,
                     temperamentos: []
                 })
@@ -79,12 +124,20 @@ export default function CreateDog (){
                 ...input,
                 altura: e.target.value.toString()+" - "+altMax
             })
+            setErrors(validate({
+                ...input,
+                altura: e.target.value.toString()+" - "+altMax
+            }))
         }else{
             setAltMax(e.target.value)
             setInput({
                 ...input,
                 altura: altMin+" - "+ e.target.value.toString()
             })
+            setErrors(validate({
+                ...input,
+                altura: altMin+" - "+ e.target.value.toString()
+            }))
         }
     }
     
@@ -95,34 +148,51 @@ export default function CreateDog (){
                 ...input,
                 peso: e.target.value.toString() + " - " + pesoMax
             })
+            setErrors(validate({
+                ...input,
+                peso: e.target.value.toString() + " - " + pesoMax
+            }))
         }else{
             setPesoMax(e.target.value)
             setInput({
                 ...input,
                 peso: pesoMin+" - "+ e.target.value.toString()
             })
+            setErrors(validate({
+                ...input,
+                peso: pesoMin+" - "+ e.target.value.toString()
+            }))
         }
     }
 
     function handleAños(e){
         if(e.target.name==="añosMin"){
             setAñosMin(e.target.value)
+            //console.log(e.target.value)
             setInput({
                 ...input,
                 años: e.target.value.toString() + " - " + añosMax
             })
+            setErrors(validate({
+                ...input,
+                años: e.target.value.toString() + " - " + añosMax
+            }))
         }else{
             setAñosMax(e.target.value)
             setInput({
                 ...input,
                 años: añosMin+" - "+ e.target.value.toString()
             })
+            setErrors(validate({
+                ...input,
+                años: añosMin+" - "+ e.target.value.toString()
+            }))
         }
     }
 
     function handleSubmit(e){
         e.preventDefault()
-        
+        if(errors!=={}){return alert("Completar errores, perro no creado")}
         if(input.imagen === ""){
             var newInput ={
                 altura: input.altura,
@@ -149,6 +219,12 @@ export default function CreateDog (){
             temperamentos: [],
             imagen: ""
         })
+        setAltMax(0)
+        setAltMin(0)
+        setPesoMax(0)
+        setPesoMin(0)
+        setAñosMax(0)
+        setAñosMin(0)
 
     }
 
@@ -162,7 +238,7 @@ export default function CreateDog (){
                     <input type="text" value={input.nombre} name = "nombre" onChange={(e)=>handleChange(e)}/>
                 </div>
                 <div>
-                    <label a>Altura:</label>
+                    <label>Altura:</label>
                     <div>
                         <label>Minimo:</label>
                         <input type="number" value={altMin} min ="0" name = "alturaMin" onChange={(e)=>handleAltura(e)}/>
@@ -209,8 +285,23 @@ export default function CreateDog (){
                     :<h4>Elegir temperamentos</h4>
                     }
                 </div>
-                <button type="submit">Crear perro</button>
+                <button disabled={!errors.length===0} type="submit">Crear perro</button>
             </form>
+
+            {
+                errors.nombre || errors.peso || errors.pesoNum || errors.años || errors.añosNum || errors.alt || errors.altNum || errors.temperamentos ?
+                //console.log(errors.nombre)
+                <ul>
+                {Object.keys(errors).map( elem =>{
+                    return(
+                        <li>{errors[elem]}</li>
+                    )
+                    }
+                )
+                }
+                </ul>
+                :<p>No hay errores!</p> 
+            }
 
             <Link to="/home"><button>Volver</button></Link>
         </div>

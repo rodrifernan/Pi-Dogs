@@ -27,14 +27,20 @@ function ordenarW(a, b, payload){
     }else{
         arrayA = a.peso.split(' - ')
     }
+    if(arrayA[0]==="up"){
+        arrayA[0]="5"
+    }
     arrayA = [parseFloat(arrayA[0]), parseFloat(arrayA[1])]
     if(b.peso.length < 4){
         var arrayB = [b.peso, b.peso]
     }else{
         arrayB = b.peso.split(' - ')
     }
-    arrayB = [parseFloat(arrayB[0]), parseFloat(arrayB[1])]
+    if(arrayB[0]==="up"){
+        arrayB[0]="5"
+    }
     //console.log(arrayB)
+    arrayB = [parseFloat(arrayB[0]), parseFloat(arrayB[1])]
 
     return payload === "asc" ? 
         arrayA[0] < arrayB[0] ? -1 : arrayA[0] > arrayB[0]? 1 : 0 
@@ -70,19 +76,23 @@ function rootReducer(state= initialState, action){
         case 'ORDER_BY_NAME':
             let sortedArr = action.payload === "asc" ?
                 state.dogsCopy.sort((a,b)=>{
-                    if(a.nombre > b.nombre){
+                    var aNombre = a.nombre.toLowerCase()
+                    var bNombre = b.nombre.toLowerCase()
+                    if(aNombre > bNombre){
                         return 1
                     }
-                    if(a.nombre < b.nombre){
+                    if(aNombre < bNombre){
                         return -1
                     }
                     return 0
                 })
                 :   state.dogsCopy.sort((a,b)=>{
-                    if(a.nombre < b.nombre){
+                    var aNombre = a.nombre.toLowerCase()
+                    var bNombre = b.nombre.toLowerCase()
+                    if(aNombre < bNombre){
                         return 1
                     }
-                    if(a.nombre > b.nombre){
+                    if(aNombre > bNombre){
                         return -1
                     }
                     return 0
@@ -94,11 +104,12 @@ function rootReducer(state= initialState, action){
         case 'ORDER_BY_WEIGHT':
             let sortedArr2 =state.dogsCopy.sort((a,b)=>{
                     return ordenarW(a, b, action.payload)
+                    
                     //console.log(ordenarW(a, b, action.payload))
                 })
                 /* :   state.dogsCopy.sort((a,b)=>{
-
                 }) */
+                //console.log(sortedArr2.map(elem=>{elem.peso}))
             return {
                 ...state,
                 dogsCopy : sortedArr2

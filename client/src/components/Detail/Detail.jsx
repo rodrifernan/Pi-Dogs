@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetail} from '../../actions'
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import Loading from "../Loading/Loading";
 
 export default function Detail(){
     
@@ -24,7 +25,7 @@ export default function Detail(){
                 !myDog[0].createdInDB ?  /* checkeo si se carga uno de api*/
                 <div>
                     <h1>{myDog[0].nombre}</h1>
-                    <img src={myDog[0].imagen} onError={(e)=>{e.target.onerror = null; e.target.src="https://img.favpng.com/20/25/4/dog-paw-logo-cat-png-favpng-Z89TpBXQKbri6trMAcXqnNdJq.jpg"}} alt = "" height="750px" width="700px"/>
+                    <img src={myDog[0].imagen} onError={(e)=>{e.target.onerror = null; e.target.src="https://img.favpng.com/20/25/4/dog-paw-logo-cat-png-favpng-Z89TpBXQKbri6trMAcXqnNdJq.jpg"}} alt = "" height="700px" width="700px"/>
                     <h4>ID de Raza: {myDog[0].id}</h4>
                     <h4>Temperamentos: {myDog[0].temperamentos.map((elem)=>elem + " ") }</h4>
                     <ul>
@@ -35,7 +36,7 @@ export default function Detail(){
                     </ul>
                 </div> : <div>
                     <h1>{myDog[0].nombre}</h1>
-                    <img src={myDog[0].imagen} onError={(e)=>{e.target.onerror = null; e.target.src="https://img.favpng.com/20/25/4/dog-paw-logo-cat-png-favpng-Z89TpBXQKbri6trMAcXqnNdJq.jpg"}} alt = "" height="750px" width="700px"/>
+                    <img src={myDog[0].imagen} onError={(e)=>{e.target.onerror = null; e.target.src="https://img.favpng.com/20/25/4/dog-paw-logo-cat-png-favpng-Z89TpBXQKbri6trMAcXqnNdJq.jpg"}} alt = "" height="700px" width="700px"/>
                     <h4>Types: {myDog[0].temperamentos.map((elem)=>elem.nombre + " ")}</h4>
                     <ul>
                         <label>Estadisticas:</label>
@@ -44,7 +45,7 @@ export default function Detail(){
                         <li>Años: {myDog[0].años}</li>
                     </ul>
                 </div>  :
-                <p>Loading</p>
+                <Loading/>
             }
 
 

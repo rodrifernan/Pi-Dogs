@@ -5,6 +5,7 @@ import { getDogs, getTemparemanetos, filterDogsByTemperament, orderByName, order
 import { Card } from '../Card/Card'
 import SearchBar from '../SearchBar/SearchBar'
 import Paginado from '../Paginado/Paginado'
+import Loading from '../Loading/Loading'
 
 
 export default function Home(){
@@ -43,6 +44,8 @@ export default function Home(){
         dispatch(orderByName(e.target.value))
         setCurrentPage(1)
         setOrden(`Ordenado ${e.target.value}`)
+        /* e.target.value = "hola"
+        console.log(e) */
     }
 
     function handleSortPeso(e){         //Listo
@@ -64,8 +67,6 @@ export default function Home(){
         setCurrentPage(1)
     }
 
-
-
     return(
         <div>
             <Link to = '/createDog'>Crear Perro</Link>
@@ -73,7 +74,7 @@ export default function Home(){
             <button onClick={e=>{handleClick(e)}}>Volver a cargar los Perros</button>
             <div>
             <select onChange={e=> handleSortNombre(e)} name = 'nombre'>              {/*Ordenar por nombre*/}
-                    <option selected disabled>Ordenar Por Nombre</option>
+                    <option selected disabled >Ordenar Por Nombre</option>
                     <option value='asc'>A-Z</option>
                     <option value='desc'>Z-A</option>
                 </select>
@@ -104,7 +105,8 @@ export default function Home(){
             <SearchBar/>
             <Paginado dogsPerPage ={dogsPerPage} allDogs = {allDogs.length} paginado = {paginado}/>
             {
-                currentDog?.map( elem=>{
+                currentDog.length? 
+                currentDog.map( elem=>{
                     return (
                     <div key={elem.id}>
                         <Link to={"/home/" + elem.id}>
@@ -112,6 +114,7 @@ export default function Home(){
                         </Link>
                     </div>)}
                 )
+                : <Loading/>
             }
         </div>
     )
