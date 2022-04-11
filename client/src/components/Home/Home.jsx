@@ -1,7 +1,7 @@
 import {React, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getDogs, getTemparemanetos, filterDogsByTemperament, orderByName, orderByWeight, filterByOrigin, clearDetail } from '../../actions'
+import { getDogs, getTemparemanetos, filterDogsByTemperament, orderByName, orderByWeight, filterByOrigin, clearDetail, clearDogs } from '../../actions'
 import { Card } from '../Card/Card'
 import SearchBar from '../SearchBar/SearchBar'
 import Paginado from '../Paginado/Paginado'
@@ -27,6 +27,7 @@ export default function Home(){
 
 
     useEffect(()=>{
+        dispatch(clearDogs())
         dispatch(getDogs())
         dispatch(getTemparemanetos())
         dispatch(clearDetail())

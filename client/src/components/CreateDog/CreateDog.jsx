@@ -23,22 +23,23 @@ export default function CreateDog (){
 
     function validate(input){
         let errors = {}
+        console.log("pesoMax=" + pesoMax)
         if(input.nombre.length < 4){
             errors.nombre = "El nombre debe tener al menos 4 letras"
         }
-        if(pesoMin>=pesoMax || pesoMax<=0 || pesoMin<=0){
+        if(parseFloat(pesoMin)>=parseFloat(pesoMax) || parseFloat(pesoMax)<=0 || parseFloat(pesoMin)<=0){
             errors.peso = "El peso minimo debe ser menor al maximo"
         }
         if(!parseFloat(pesoMax) || !parseFloat(pesoMin)){
             errors.pesoNum = "Los pesos deben ser numericos"
         }
-        if(añosMin>=añosMax || añosMax<=0 || añosMin<=0){
+        if(parseFloat(añosMin)>=parseFloat(añosMax) || parseFloat(añosMax)<=0 || parseFloat(añosMin)<=0){
             errors.años = "Los años minimos deben ser menores a los máximos"
         }
         if(!parseFloat(añosMax)|| !parseFloat(añosMin)){
             errors.añosNum= "Los años deben ser numéricos"
         }
-        if(altMin>=altMax || altMax<=0 || altMin<=0){
+        if(parseFloat(altMin)>=parseFloat(altMax) || parseFloat(altMax)<=0 || parseFloat(altMin)<=0){
             errors.alt = "La altura minima debe ser menor a la máxima"
         }
         if(!parseFloat(altMax)|| !parseFloat(altMin)){
@@ -153,6 +154,7 @@ export default function CreateDog (){
                 peso: e.target.value.toString() + " - " + pesoMax
             }))
         }else{
+            console.log(typeof e.target.value)
             setPesoMax(e.target.value)
             setInput({
                 ...input,
@@ -192,6 +194,7 @@ export default function CreateDog (){
 
     function handleSubmit(e){
         e.preventDefault()
+        setErrors(validate(input))
         if(errors!=={}){return alert("Completar errores, perro no creado")}
         if(input.imagen === ""){
             var newInput ={

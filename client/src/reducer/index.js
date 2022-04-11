@@ -21,7 +21,7 @@ function checkearTemps(array, payload){     //funcion auxiliar para filtrar por 
 }
 
 function ordenarW(a, b, payload){
-    //console.log("paso por aca")
+    //console.log(typeof a.peso)
     if(a.peso.length < 4){
         var arrayA = [a.peso, a.peso]
     }else{
@@ -41,13 +41,14 @@ function ordenarW(a, b, payload){
     }
     //console.log(arrayB)
     arrayB = [parseFloat(arrayB[0]), parseFloat(arrayB[1])]
+    //console.log(typeof arrayB[0])
 
     return payload === "asc" ? 
-        arrayA[0] < arrayB[0] ? -1 : arrayA[0] > arrayB[0]? 1 : 0 
+        arrayA[0] < arrayB[0] ? -1 : arrayA[0] > arrayB[0]? 1 : 0
         
         :
 
-        arrayA[1] > arrayB[1] ? -1 : arrayA[1] < arrayB[0]? 1 : 0
+        arrayA[1] > arrayB[1] ? -1 : arrayA[1] < arrayB[1]? 1 : 0
 }
 
 
@@ -146,6 +147,11 @@ function rootReducer(state= initialState, action){
         case 'POST_DOG' :
             return{
                 ...state
+            }
+        case 'CLEAR_DOGS':
+            return{
+                ...state,
+                dogsCopy: []
             }
     
         default : return state;

@@ -90,3 +90,10 @@ export function postDog(payload){
         return json
     }
 }
+
+export function clearDogs(payload){
+    return {
+        type: 'CLEAR_DOGS',
+        payload
+    }
+}
