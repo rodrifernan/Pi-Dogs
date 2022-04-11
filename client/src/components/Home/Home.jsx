@@ -6,6 +6,7 @@ import { Card } from '../Card/Card'
 import SearchBar from '../SearchBar/SearchBar'
 import Paginado from '../Paginado/Paginado'
 import Loading from '../Loading/Loading'
+import './Home.css'
 
 
 export default function Home(){
@@ -105,11 +106,12 @@ export default function Home(){
             </select>
             <SearchBar/>
             <Paginado dogsPerPage ={dogsPerPage} allDogs = {allDogs.length} paginado = {paginado}/>
+            <div className='cards'>
             {
                 currentDog.length? 
                 currentDog.map( elem=>{
                     return (
-                    <div key={elem.id}>
+                        <div className='card' key={elem.id}>
                         <Link to={"/home/" + elem.id}>
                         <Card nombre={elem.nombre} imagen ={elem.imagen} temperamentos = {elem.temperamentos}/>
                         </Link>
@@ -117,6 +119,7 @@ export default function Home(){
                 )
                 : <Loading/>
             }
+            </div>
         </div>
     )
 }
