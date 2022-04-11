@@ -72,3 +72,7 @@
 .btn:disabled {
   cursor: auto;
 }
+
+.Titulo{
+    font-size: 500%;
+}

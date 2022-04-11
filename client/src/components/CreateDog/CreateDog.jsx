@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from 'react-router-dom'
 import { getTemparemanetos, postDog } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
+import './CreateDog.css'
 
 /* //<Link onClick={setInput({...input, temperamentos:input.temperamentosmperamentos.pop()})}>X</Link> */
 export default function CreateDog (){
@@ -19,6 +20,7 @@ export default function CreateDog (){
             ...input,
             [e.target.name]: e.target.value
         }))
+        console.log(input.imagen)
     }
 
     function validate(input){
@@ -234,9 +236,9 @@ export default function CreateDog (){
     }
 
     return (
-        <div>
+        <div className="CreateDog">
             {/*console.log(pesoMin)*/}
-            <h1>Crea un perro nuevo</h1>
+            <h1 className="h1">Crea un perro nuevo</h1>
             <form onSubmit={(e)=>handleSubmit(e)}>
                 <div>
                     <label>Nombre:</label>
@@ -296,7 +298,7 @@ export default function CreateDog (){
             {
                 errors.nombre || errors.peso || errors.pesoNum || errors.años || errors.añosNum || errors.alt || errors.altNum || errors.temperamentos ?
                 //console.log(errors.nombre)
-                <ul>
+                <ul className="errores">
                 {Object.keys(errors).map( elem =>{
                     return(
                         <li>{errors[elem]}</li>

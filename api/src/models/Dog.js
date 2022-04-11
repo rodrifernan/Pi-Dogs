@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
     imagen: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "https://img.favpng.com/20/25/4/dog-paw-logo-cat-png-favpng-Z89TpBXQKbri6trMAcXqnNdJq.jpg"
+      defaultValue: "http://assets.stickpng.com/images/58aeffb2c869e092af51ee74.png"
     },
     createdInDB: {
       type: DataTypes.BOOLEAN,

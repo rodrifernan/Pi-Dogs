@@ -1,0 +1,18 @@
+.errores{
+    border-radius: 13px 14px 14px 14px;
+    -webkit-border-radius: 13px 14px 14px 14px;
+    -moz-border-radius: 13px 14px 14px 14px;
+    background: #ffc6c6;
+    border: 7px solid #ff6550;
+    margin-left: 250px;
+    margin-right: 250px;
+    box-shadow: 10px 10px 5px 0px rgba(255, 101, 80,0.75);
+    /* -webkit-box-shadow: 10px 10px 5px 0px rgba(255, 101, 80,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(255, 101, 80,0.75); */
+}
+.CreateDog{
+    background-color: bisque;
+}
+.h1{
+    margin-top: 0;
+}
