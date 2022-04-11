@@ -16,7 +16,7 @@ export default function Detail(){
     }, [dispatch, detParams])
 
     const myDog = useSelector((state)=> state.detail)
-
+    
     return(
         <div>
             {
@@ -30,8 +30,8 @@ export default function Detail(){
                     <h4>Temperamentos: {myDog[0].temperamentos.map((elem)=>elem + " ") }</h4>
                     <ul>
                         <label>Estadisticas:</label>
-                        <li>Altura: {myDog[0].altura}</li>
-                        <li>Peso: {myDog[0].peso}</li>
+                        <li>Altura: {myDog[0].altura} cms</li>
+                        <li>Peso: {myDog[0].peso} lbs</li>
                         <li>Años: {myDog[0].años}</li>
                     </ul>
                 </div> : <div>
@@ -40,9 +40,9 @@ export default function Detail(){
                     <h4>Types: {myDog[0].temperamentos.map((elem)=>elem.nombre + " ")}</h4>
                     <ul>
                         <label>Estadisticas:</label>
-                        <li>Altura: {myDog[0].altura}</li>
-                        <li>Peso: {myDog[0].peso}</li>
-                        <li>Años: {myDog[0].años}</li>
+                        <li>Altura: {myDog[0].altura} cms</li>
+                        <li>Peso: {myDog[0].peso} lbs</li>
+                        <li>Años: {myDog[0].años} years</li>
                     </ul>
                 </div>  :
                 <Loading/>

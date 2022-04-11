@@ -71,7 +71,7 @@ router.get('/peso', async (req, res, next) =>{
     var pesos = []
     dogs.map(elem =>{
         if(elem.weight.imperial.length < 4){}
-        pesos.push([elem.weight.imperial, elem.id])
+        pesos.push([elem.life_span, elem.id])
     })
     res.status(200).send(pesos)
 })

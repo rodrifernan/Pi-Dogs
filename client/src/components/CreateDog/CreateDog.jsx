@@ -23,7 +23,7 @@ export default function CreateDog (){
 
     function validate(input){
         let errors = {}
-        console.log("pesoMax=" + pesoMax)
+        //console.log("pesoMax=" + pesoMax)
         if(input.nombre.length < 4){
             errors.nombre = "El nombre debe tener al menos 4 letras"
         }
@@ -81,8 +81,7 @@ export default function CreateDog (){
                 ...input,
                 temperamentos: [...input.temperamentos, e.target.value]
             }))
-            //console.log(input)
-            console.log(errors)
+            //console.log(errors)
         }
         
         //console.log(input.temperamentos)
@@ -154,7 +153,7 @@ export default function CreateDog (){
                 peso: e.target.value.toString() + " - " + pesoMax
             }))
         }else{
-            console.log(typeof e.target.value)
+            //console.log(typeof e.target.value)
             setPesoMax(e.target.value)
             setInput({
                 ...input,
@@ -195,7 +194,10 @@ export default function CreateDog (){
     function handleSubmit(e){
         e.preventDefault()
         setErrors(validate(input))
-        if(errors!=={}){return alert("Completar errores, perro no creado")}
+        if(Object.keys(errors).length!==0){
+            //console.log(Object.keys(errors))
+            return alert("Completar errores, perro no creado")
+        }
         if(input.imagen === ""){
             var newInput ={
                 altura: input.altura,
@@ -206,14 +208,13 @@ export default function CreateDog (){
             }
             //dispatchear con new input
             dispatch(postDog(newInput))
-            console.log(newInput)
-            console.log(input)
+            //console.log(newInput)
+            //console.log(input)
 
         }else{
             dispatch(postDog(input))
             //dispatch normal
         }
-        alert('Perro creado')
         setInput({
             nombre: "",
             altura:"",
@@ -228,7 +229,8 @@ export default function CreateDog (){
         setPesoMin(0)
         setAñosMax(0)
         setAñosMin(0)
-
+        
+        return alert('Perro creado')
     }
 
     return (
