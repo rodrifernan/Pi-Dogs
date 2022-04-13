@@ -287,7 +287,7 @@ export default function CreateDog (){
                     {input.temperamentos.length? 
                         <div>
                         <ul><li>{mostrarTemps()}</li></ul>
-                        <button onClick={()=>deleteTemp()}>X</button>
+                        <button className="btnX" onClick={()=>deleteTemp()}>X</button>
                         </div>
                     :<h4>Elegir temperamentos</h4>
                     }
