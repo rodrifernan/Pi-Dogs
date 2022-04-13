@@ -22,8 +22,8 @@ export function Card(nombre ){
     return(
         <div>
             <h3>Nombre: {nombre.nombre}</h3>
-            <h5>{nombre.temperamentos.length>=1 ? buildTemps(nombre.temperamentos):"Temperamentos: N/A"}</h5>
             <img src={nombre.imagen} onError={(e)=>{e.target.onerror = null; e.target.src=pata}} alt = "" width = "200px" length = "250px" />
+            <h5>{nombre.temperamentos.length>=1 ? buildTemps(nombre.temperamentos):"Temperamentos: N/A"}</h5>
         </div>
     )
 }

@@ -25,6 +25,7 @@ export default function Searchbar(){
         <div>
             <input 
                 type = 'text'
+                value={nombre}
                 placeholder="Buscar Perro..."
                 onChange={(e)=> handleInputChange(e)}
             />

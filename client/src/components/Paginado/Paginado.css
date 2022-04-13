@@ -1,33 +1,9 @@
-.cards{
-    display: flex;
-    flex-flow: row wrap;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    border: 14px solid #dc943a;
-    background-color: #1899D6;
-    border-radius: 20px;
-}
-.Loading{
-    justify-self: center;
-}
 
-.Home{
-    background-color: bisque;
-}
-
-.card{
-    border-color: bisque;
-    border: 6px dashed bisque;
-    margin: 0.4rem;
-}
-
-.btn{
+.number{
     /* CSS */
     
-      appearance: button;
-      background-color: #1899D6;
+    appearance: button;
+    background-color: #1899D6;
       background-position: 50% 50%;
       border: solid transparent;
       border-radius: 16px;
@@ -55,14 +31,16 @@
       vertical-align: middle;
       white-space: nowrap;
       width: fit-content;
+      margin-right: 10px;
+      /* border-radius: 10px 10px 10px 10px;border: 4px solid #ff6550; */
     }
     
-    .btn:after {
-      background-clip: padding-box;
-      background-color: #1CB0F6;
-      border: solid transparent;
-      border-radius: 16px;
-      border-width: 0 0 4px;
+    .number:after {
+        background-clip: padding-box;
+        background-color: #1CB0F6;
+        border: solid transparent;
+        border-radius: 16px;
+        border-width: 0 0 4px;
       bottom: -4px;
       content: "";
       left: 0;
@@ -72,15 +50,15 @@
       z-index: -1;
     }
     
-    .btn:main,
-    .btn:focus {
+    .number:main,
+    .number:focus {
       user-select: auto;
     }
     
-    .btn:hover:not(:disabled) {
+    .number:hover:not(:disabled) {
       filter: brightness(1.1);
     }
     
-    .btn:disabled {
+    .number:disabled {
       cursor: auto;
     }

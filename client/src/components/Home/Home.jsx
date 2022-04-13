@@ -73,7 +73,7 @@ export default function Home(){
         <div className='Home'>
             <Link to = '/createDog'>Crear Perro</Link>
             <h1>Perros</h1>
-            <button onClick={e=>{handleClick(e)}}>Volver a cargar los Perros</button>
+            <button className='btn' onClick={e=>{handleClick(e)}}>Volver a cargar los Perros</button>
             <div>
             <select onChange={e=> handleSortNombre(e)} name = 'nombre'>              {/*Ordenar por nombre*/}
                     <option selected disabled >Ordenar Por Nombre</option>

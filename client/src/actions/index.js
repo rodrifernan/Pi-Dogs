@@ -59,6 +59,10 @@ export function getDogByName(payload){
             })
         }catch(e){
             console.log("error en la busqueda")
+            return dispatch({
+                type: "GET_DOG_BY_NAME",
+                payload: []
+            })
         }
     }
 }
