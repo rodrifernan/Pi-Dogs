@@ -55,7 +55,7 @@ export default function CreateDog (){
     }
 
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({vacio: "todo vacio"})
 
     const [pesoMin, setPesoMin] = useState(0)
     const [pesoMax, setPesoMax] = useState(0)
@@ -208,6 +208,7 @@ export default function CreateDog (){
                 peso: input.peso,
                 temperamentos: input.temperamentos
             }
+            console.log("paso por aca")
             //dispatchear con new input
             dispatch(postDog(newInput))
             //console.log(newInput)

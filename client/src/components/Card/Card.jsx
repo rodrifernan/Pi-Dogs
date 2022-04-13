@@ -1,5 +1,6 @@
 import React from "react";
 import pata from "../../pata1.png"
+import "./Card.css"
 
 function buildTemps(temps){
     var texto = 'Temperamentos: '
@@ -21,9 +22,9 @@ function buildTemps(temps){
 export function Card(nombre ){
     return(
         <div>
-            <h3>Nombre: {nombre.nombre}</h3>
+            <h3 className="temps">Nombre: {nombre.nombre}</h3>
             <img src={nombre.imagen} onError={(e)=>{e.target.onerror = null; e.target.src=pata}} alt = "" width = "200px" length = "250px" />
-            <h5>{nombre.temperamentos.length>=1 ? buildTemps(nombre.temperamentos):"Temperamentos: N/A"}</h5>
+            <h5 className="temps">{nombre.temperamentos.length>=1 ? buildTemps(nombre.temperamentos):"Temperamentos: N/A"}</h5>
         </div>
     )
 }
